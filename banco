@@ -1,0 +1,74 @@
+create database db_clinicaVeterinaria;
+use db_clinicaVeterinaria;
+
+
+create table tb_veterinario(
+vet_codVet int not null auto_increment primary key,
+vet_nome varchar(60) not null,
+vet_cpf varchar(11) not null unique,
+vet_telCel varchar(150),
+vet_telFixo varchar(150),
+vet_crmv int unique not null,
+vet_email varchar(30) not null,
+vet_logradouro varchar(150),
+vet_num int(11),
+vet_complemento varchar(150),
+vet_bairro varchar(150),
+vet_cidade varchar(150),
+vet_uf char(2),
+vet_cep varchar(150)
+);
+
+create table tb_atendente(
+codAtend int(11),
+cpf varchar (150),
+nome varchar(150),
+email varchar(150),
+rg varchar (150),
+telFixo varchar(150),
+telCel varchar(150),
+foreign key (telCel) references tb_veterinario(codVet) 
+);
+
+
+create table tb_dono (
+codDono int (11),
+nome varchar(150),
+cpf varchar (150),
+telFixo varchar(150),
+rg varchar (150),
+telCel varchar(150),
+logradouro varchar(150),
+num int (11),
+complemento varchar(150),
+bairro varchar (150),
+cidade varchar (150),
+uf char(2),
+cep varchar (150),
+foreign key (cep) references tb_veterinario(codVet)
+);
+
+create table tb_animal(
+codAnimal int(11),
+nome varchar(255),
+especie varchar(150),
+sexo varchar(150),
+cor varchar (150),
+raca varchar(150),
+peso decimal(7,2),
+codDono int(11),
+foreign key (codDono) references tb_veterinario(codVet)
+);
+
+create table tb_consulta_agenda(
+codCons int(11),
+datam date,
+diagnostico varchar(255),
+preco decimal (7,2),
+hota time,
+codDono int(11),
+codAnimal int(11),
+Atend int(11),
+codVet int(11),
+foreign key (codVet) references tb_veterinario(codVet)
+);
